@@ -4,38 +4,6 @@ using Ultz.Muon.Utils;
 
 namespace Ultz.Muon
 {
-    public enum Verbosity
-    {
-        Quiet,
-        Minimal,
-        Normal,
-        Detailed,
-        Diagnostic
-    }
-
-    public enum Configuration
-    {
-        Debug,
-        Checked,
-        Release
-    }
-
-    public enum Environment
-    {
-        Auto,
-        Win32,
-        Win64,
-        Linux32,
-        Linux64,
-        Osx64,
-
-        Reserved0,
-        Reserved1,
-        Reserved2,
-        Reserved3,
-        Reserved4,
-    }
-
     public class CompilerConfiguration
     {
         private const string OutputFolder = "/bin/";
