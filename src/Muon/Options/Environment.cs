@@ -9,7 +9,8 @@
         Linux64,
         Osx64,
 
-        Reserved0,
+        // ReSharper disable once IdentifierTypo, InconsistentNaming
+        AppleiOS,
         Reserved1,
         Reserved2,
         Reserved3,
