@@ -36,4 +36,4 @@ TODO
 Come chat with us on [Discord](https://discord.gg/qk6H4zq)!
 
 # License
-Muon is currently distributed under the GNU General Public License v3. This may be a bit more copyleft than most people desire, but this is subject to change once the project is more established and Ultz's goals for the project are more clear.
+Muon is currently distributed under the MIT License.
