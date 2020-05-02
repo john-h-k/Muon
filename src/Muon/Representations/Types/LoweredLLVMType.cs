@@ -6,10 +6,13 @@ namespace Ultz.Muon.Representations.Types
 {
     public class LoweredLLVMType
     {
-        public LoweredLLVMType(LLVMTypeRef[] table, LLVMTypeRef[] orderedInstanceFields)
+        public LoweredLLVMType(LLVMTypeRef[] table, LLVMTypeRef[] orderedInstanceFields, LLVMTypeRef[] staticMethods, LLVMTypeRef[] instanceMethods, LLVMTypeRef[] staticFields)
         {
             VTable = table;
             OrderedInstanceFields = orderedInstanceFields;
+            StaticMethods = staticMethods;
+            InstanceMethods = instanceMethods;
+            StaticFields = staticFields;
         }
         
         public LLVMTypeRef[] TypeLayout { get; }

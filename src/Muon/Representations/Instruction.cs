@@ -9,14 +9,15 @@ using static Ultz.Muon.Representations.OperandParams;
 
 namespace Ultz.Muon.Representations
 {
-    public class Instruction
+    public partial struct Instruction
     {
-        public Instruction(OpCode opCode, ReadOnlyMemory<byte> operand, int position, int offset)
+        public Instruction(OpCode opCode, ReadOnlyMemory<byte> operand, int position, int branchTargetIndex = -1)
         {
             OpCode = opCode;
             Operand = operand;
             Position = position;
-            Offset = offset;
+            Debug.Assert(branchTargetIndex == -1 || opCode.IsBranch);
+            BranchTargetIndex = -1;
         }
         
         public OpCode OpCode { get; }
@@ -25,13 +26,11 @@ namespace Ultz.Muon.Representations
 
         public int Position { get; }
 
-        public int Offset { get; }
-
         public bool IsBranch => OpCode.IsBranch;
 
         public int InstructionSize => OpCode.Size + Operand.Length;
         
-        public Instruction? BranchTarget { get; set; }
+        public int BranchTargetIndex { get; set; }
 
         public int GetBranchTarget()
         {
@@ -45,7 +44,7 @@ namespace Ultz.Muon.Representations
         public override string ToString()
         {
             StringBuilder str = new StringBuilder();
-            str.Append(Offset.ToString("X8"));
+            str.Append(Position.ToString("X8"));
             str.Append(" ");
             str.Append(OpCode.ToString());
             str.Append(" ");
@@ -81,7 +80,6 @@ namespace Ultz.Muon.Representations
                 case InlineI8:
                 case InlineR:
                     return ReadOperandAs<double>().ToString(CultureInfo.InvariantCulture);
-                    ;
                 default:
                     ThrowHelper.ThrowArgumentException("Invalid enum value");
                     return default;

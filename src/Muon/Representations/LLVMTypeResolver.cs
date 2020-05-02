@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Reflection.Metadata;
 using LLVMSharp.Interop;
 using Ultz.Muon.Representations.Types;
@@ -9,7 +10,7 @@ namespace Ultz.Muon.Representations
     {
         public LLVMTypeRef ResolveReturn(NETType netType) => ResolveIndividualType(netType);
 
-        public LLVMTypeRef[] ResolveParams(NETType[] parameters, NETType? @this = null)
+        public LLVMTypeRef[] ResolveParams(ImmutableArray<NETType> parameters, NETType? @this = null)
         {
             LLVMTypeRef[] res = new LLVMTypeRef[parameters.Length + (@this is object ? 1 : 0)];
 
@@ -28,29 +29,7 @@ namespace Ultz.Muon.Representations
 
         private LLVMTypeRef ResolveIndividualType(NETType netType)
         {
-            switch (netType.ElementType)
-            {
-                case SignatureTypeCode.Byte:
-                case SignatureTypeCode.SByte:
-                case SignatureTypeCode.Boolean:
-                    return LLVMTypeRef.Int8;
-                case SignatureTypeCode.Int16:
-                case SignatureTypeCode.UInt16:
-                case SignatureTypeCode.Char:
-                    return LLVMTypeRef.Int16;
-                case SignatureTypeCode.Int32:
-                case SignatureTypeCode.UInt32:
-                    return LLVMTypeRef.Int32;
-                case SignatureTypeCode.Int64:
-                case SignatureTypeCode.UInt64:
-                    return LLVMTypeRef.Int64;
-                case SignatureTypeCode.Single:
-                    return LLVMTypeRef.Float;
-                case SignatureTypeCode.Double:
-                    return LLVMTypeRef.Double;
-            }
-
-            throw null!;
+            throw new NotImplementedException();
         }
     }
 }

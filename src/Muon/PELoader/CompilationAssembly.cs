@@ -36,5 +36,12 @@ namespace Ultz.Muon.PELoader
 
             outputType = coffHeader.Characteristics.HasFlag(Characteristics.Dll) ? OutputType.Dll : OutputType.Exe;
         }
+
+        public IEnumerable<TypeDefinitionHandle> EnumerateTypeDefs()
+        {
+            return Reader.TypeDefinitions;
+        }
+
+        public string GetString(StringHandle handle) => Reader.GetString(handle);
     }
 }

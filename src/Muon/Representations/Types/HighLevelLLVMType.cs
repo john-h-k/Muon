@@ -14,6 +14,8 @@ namespace Ultz.Muon.Representations.Types
             StaticMethods = staticMethods;
         }
 
+        public HighLevelLLVMType[] ImplementingInterfaces { get; }
+
         public HighLevelLLVMType[] InstanceFields { get; }
         public HighLevelLLVMType[] InstanceMethods { get; }
         
@@ -23,19 +25,6 @@ namespace Ultz.Muon.Representations.Types
 
         public static partial class SpecialTypes
         {
-            public static readonly HighLevelLLVMType SByte ;
-            public static readonly HighLevelLLVMType Int16;
-            public static readonly HighLevelLLVMType Int32;
-            public static readonly HighLevelLLVMType Int64;
-            public static readonly HighLevelLLVMType Byte;
-            public static readonly HighLevelLLVMType UInt16;
-            public static readonly HighLevelLLVMType UInt32;
-            public static readonly HighLevelLLVMType UInt64;
-            public static readonly HighLevelLLVMType Char;
-            public static readonly HighLevelLLVMType Object;
-            public static readonly HighLevelLLVMType Boolean;
-            public static readonly HighLevelLLVMType Single;
-            public static readonly HighLevelLLVMType Double;
         }
         
         public LoweredLLVMType Lower()
@@ -43,11 +32,7 @@ namespace Ultz.Muon.Representations.Types
             return GetOrLowerType(this);
         }
 
-        private static readonly Dictionary<HighLevelLLVMType, LoweredLLVMType> LoweringMap =
-            new Dictionary<HighLevelLLVMType, LoweredLLVMType>
-            {
-            };
-
+        private static readonly Dictionary<HighLevelLLVMType, LoweredLLVMType> LoweringMap = new Dictionary<HighLevelLLVMType, LoweredLLVMType>();
         private static LoweredLLVMType GetOrLowerType(HighLevelLLVMType type)
         {
             if (LoweringMap.TryGetValue(type, out var value)) return value;
@@ -65,11 +50,25 @@ namespace Ultz.Muon.Representations.Types
                 }
 
                 // The vtable used when boxed
-                var vtable = CreateVtableForValueType(type.ImplementingInterfaces);
+                var vtable = CreateVTableForValueType(type.ImplementingInterfaces);
                 
-                result = new LoweredLLVMType(vtable, layout);
+                //result = new LoweredLLVMType(vtable, layout, );
+                throw new NotImplementedException();
+            }
+            else
+            {
+                
             }
         }
 
+        private static LLVMTypeRef[] CreateVTableForValueType(HighLevelLLVMType[] implementingInterfaces)
+        {
+            if (implementingInterfaces != null && implementingInterfaces.Length != 0)
+                throw new NotSupportedException();
+            
+            
+        }
+        
+        
     }
 }
